@@ -5,6 +5,12 @@ export const getAllBooks = async () => {
     return response.data;
 }
 
+export const getBook = async (id) => {
+    const bookId = id.queryKey[1].id;
+    const response = await axios(`${process.env['REACT_APP_API_SERVER']}/books/${bookId}`)
+    return response.data;
+}
+
 export const createBook = async ({...book}) => {
     await axios.post(`${process.env['REACT_APP_API_SERVER']}/books`,book)
         .then(res => {
@@ -12,8 +18,8 @@ export const createBook = async ({...book}) => {
         });
 }
 
-export const updateBook = async (book, id) => {
-    await axios.put(`${process.env['REACT_APP_API_SERVER']}/books/${id}`, book)
+export const updateBook = async ({ id, ...data }) => {
+    await axios.put(`${process.env['REACT_APP_API_SERVER']}/books/${id}`, data)
         .then(res => {
             console.log(res.data);
         })

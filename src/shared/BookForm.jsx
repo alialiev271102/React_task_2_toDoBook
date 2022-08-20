@@ -4,10 +4,10 @@ import {useForm} from "react-hook-form";
 import {ThreeDots} from "react-loader-spinner";
 
 export const BookForm = ({defaultValues, onFormSubmit, isLoading}) => {
-    console.log(defaultValues);
     const {register, handleSubmit} = useForm({defaultValues});
 
     const onSubmit = data => {
+        console.log(data)
         onFormSubmit(data);
     }
 
