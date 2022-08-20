@@ -1,0 +1,9 @@
+.title, .add {
+    font-size: 30px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.title:active, .title:hover, .add:active, .add:hover {
+    text-decoration: underline;
+}

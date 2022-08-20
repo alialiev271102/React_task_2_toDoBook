@@ -1,16 +1,16 @@
 import {Route, Routes} from "react-router-dom";
 import {BookList} from "./BookList";
-import {CreatePage} from "./CreatePage"
+import {CreateBook} from "./CreateBook"
 import {UpdateBook} from "./UpdateBook";
-import {NavBar} from "./shared/NavBar";
+import {NavBar} from "./shared";
 
 function App() {
     return (
         <>
             <NavBar/>
             <Routes>
-                <Route path='/update' element={<UpdateBook/>}/>
-                <Route path='/create' element={<CreatePage/>}/>
+                <Route path='/update-book/:id' element={<UpdateBook/>}/>
+                <Route path='/create-book' element={<CreateBook/>}/>
                 <Route path='/' element={<BookList/>}/>
             </Routes>
         </>

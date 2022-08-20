@@ -1,15 +1,20 @@
-import {getAllBooks} from "../api";
-import {Container} from "../shared/Container";
-import {Flex} from "rebass/styled-components";
+import {getAllBooks, removeBook} from "../api";
+import { Flex, Text, Button, Link as StyledLink } from "rebass/styled-components";
+import {Container} from "../shared";
 import {useEffect, useState} from "react";
 import {ThreeDots} from "react-loader-spinner";
+import {Link as RouterLink} from "react-router-dom";
 
 export const BookList = () => {
-    let [data, setData] = useState();
+    let [data, setData] = useState([]);
     const fun = async () => {
-        data = await getAllBooks();
-        setData(data)
-        console.log(data)
+        const newData = await getAllBooks();
+        setData(newData)
+    }
+
+    const remove = async (id) => {
+        setData(data.filter((item) => item.id !== id));
+        await removeBook(id);
     }
     useEffect(() => {
         fun();
@@ -20,10 +25,14 @@ export const BookList = () => {
             setLoad(<Container>
                 <Flex flexDirection="column" alignItems="center">
                     {
-                        data.data.map(({author, title, id}) => (
-                            <div key={id}>
-                                {author} - {title}
-                            </div>
+                        data.map(({author, title, id}) => (
+                            <Flex key={id} p={3} width="100%" alignItems="center">
+                                <StyledLink as={RouterLink} to={`/update-book/${id}`} mr="auto">{title}</StyledLink>
+                                <Text>{author}</Text>
+                                <Button onClick={() => remove(id)} ml="5">
+                                    Delete
+                                </Button>
+                            </Flex>
                         ))
                     }
                 </Flex>
